@@ -1,6 +1,6 @@
 import by.onliner.pages.BaseTest;
-import by.onliner.pages.CatalogFilterPage;
-import by.onliner.pages.CatalogPage;
+
+import com.aventstack.extentreports.Status;
 import org.testng.annotations.Test;
 
 import static com.simkin.framework.WebDriverInstance.getDriver;
