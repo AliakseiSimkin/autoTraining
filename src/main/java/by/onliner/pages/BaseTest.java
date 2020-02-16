@@ -21,9 +21,9 @@ import static com.simkin.framework.WebDriverInstance.*;
 public class BaseTest {
 
     protected static WebApplication webaApp;
-    protected static ExtentTest logger;
-    protected static ExtentHtmlReporter reporter;
-    protected static ExtentReports extent;
+    protected static ExtentTest extentTest;
+    protected static ExtentHtmlReporter extentHtmlReporter;
+    protected static ExtentReports extentReports;
 
     @BeforeSuite
     public void beforeSuite() {
@@ -34,10 +34,10 @@ public class BaseTest {
 
     @BeforeClass
     public void startTest() {
-        reporter = new ExtentHtmlReporter("./reports/testOnlinerReport.html");
-        extent = new ExtentReports();
-        extent.attachReporter(reporter);
-        logger = extent.createTest("testOnliner");
+        extentHtmlReporter = new ExtentHtmlReporter("./reports/testOnlinerReport.html");
+        extentReports = new ExtentReports();
+        extentReports.attachReporter(extentHtmlReporter);
+        extentTest = extentReports.createTest("testOnliner");
     }
 
     @BeforeMethod
@@ -52,14 +52,14 @@ public class BaseTest {
         File screenshot = scr.getScreenshotAs(OutputType.FILE);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         FileUtils.copyFile(screenshot, new File("/Users/aliaksei.simkin/Documents/Automation/screenshots/test1-" + timestamp + " .png"));
-        logger.log(Status.PASS, "the test is finished successfully");
+        extentTest.log(Status.PASS, "the test is finished successfully");
     }
 
     @AfterClass
     public static void endTest()
     {
         //extent.endTest(logger);
-        extent.flush();
+        extentReports.flush();
     }
 
     @AfterSuite
