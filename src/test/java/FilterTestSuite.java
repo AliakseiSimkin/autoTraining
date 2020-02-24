@@ -1,6 +1,7 @@
 import by.onliner.pages.BaseTest;
 
-import com.aventstack.extentreports.Status;
+import by.onliner.pages.CatalogMenu;
+import by.onliner.pages.HeaderMenu;
 import org.testng.annotations.Test;
 
 import static com.simkin.framework.WebDriverInstance.getDriver;
@@ -11,10 +12,8 @@ public class FilterTestSuite extends BaseTest {
         public void testOnliner() throws Exception {
             //start testing
             webaApp.mainPage()
-                    .logMessages()
-                    .openMainPage()
-                    .catalogMenuButtonClick()
-                    .beautyAndSportButtonClick()
+                    .openHeaderMenu(HeaderMenu.CATALOG)
+                    .openCatalogSubMenu(CatalogMenu.BEAUTY)
                     .hobbyElementHoverOver().aeroElementClickButton()
                     //Проверить текст хедера "Радиоуправляемые авиамодели"
                     .checkHeader(getDriver().getTitle())

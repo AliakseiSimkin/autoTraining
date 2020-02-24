@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.WebElement;
 
+import static com.simkin.framework.Browser.implicitlyWait;
 import static com.simkin.framework.WebDriverInstance.*;
 
 @Log4j
@@ -30,11 +30,11 @@ public class MainPage extends Page {
         return this;
     }
 
-    public CatalogPage catalogMenuButtonClick() {
-        WebElement catalogMenuButton = getDriver().findElement(By.xpath("//a[@href=\"https://catalog.onliner.by/\"]"));
-        catalogMenuButton.click();
+    public CatalogPage openHeaderMenu(HeaderMenu headerMenu) {
+        getDriver().findElement(By.xpath(String.format("//span[@class=\"b-main-navigation__text\" and text()=\"%s\"]", headerMenu.getMenuText()))).click();
         implicitlyWait();
-        waitUntilVisibilityOfElementLocated("//span[contains(text(), \"Красота и\")]");
+        waitUntilVisibilityOfElementLocated(String.format("//li[@data-id][%d]", CatalogMenu.BEAUTY.getSubMenuNumber()));
+        //waitUntilVisibilityOfElementLocated("//span[contains(text(), \"Красота и\")]");
         return new CatalogPage();
     }
 }

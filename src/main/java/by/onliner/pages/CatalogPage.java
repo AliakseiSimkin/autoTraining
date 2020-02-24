@@ -3,23 +3,21 @@ package by.onliner.pages;
 import com.simkin.framework.Page;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebElement;
 
-import static com.simkin.framework.WebDriverInstance.*;
+import static com.simkin.framework.Browser.*;
 
 @Log4j
 @NoArgsConstructor
 public class CatalogPage extends Page {
 
+    private String catalogMenuElementXpath = "//li[@data-id][%d]";
+
     public CatalogPage logMessages() {
         super.logMessages();
-        return this;
-    }
-
-    public CatalogPage openCatalogPage() {
-        openPage("https://catalog.onliner.by/");
         return this;
     }
 
@@ -29,11 +27,11 @@ public class CatalogPage extends Page {
         return this;
     }
 
-    public CatalogPage beautyAndSportButtonClick() {
-        String beautyAndSportXPath = "//span[contains(text(), \"Красота и\")]";
-        waitUntilVisibilityOfElementLocated(beautyAndSportXPath);
-        WebElement beautyAndSportButton = getDriver().findElement(By.xpath(beautyAndSportXPath));
-        beautyAndSportButton.click();
+    public CatalogPage openCatalogSubMenu(@NotNull CatalogMenu catalogMenu) {
+        catalogMenuElementXpath = String.format(catalogMenuElementXpath, catalogMenu.getSubMenuNumber());
+        WebElement BeautySubMenu = getDriver().findElement(By.xpath(catalogMenuElementXpath));
+        waitUntilVisibilityOfElementLocated(catalogMenuElementXpath);
+        BeautySubMenu.click();
         return this;
     }
 
