@@ -38,7 +38,7 @@ public class Page {
 
     protected Page scrollPageDown() {
         JavascriptExecutor jse = (JavascriptExecutor)getDriver();
-        jse.executeScript("window.scrollBy(0,850)");
+        jse.executeScript("window.scrollBy(0,600)");
         return this;
     }
 

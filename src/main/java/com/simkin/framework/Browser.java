@@ -1,5 +1,6 @@
 package com.simkin.framework;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,15 +13,18 @@ public class Browser extends WebDriverInstance {
     public Browser(BrowserType browserType) {
         switch (browserType) {
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+                WebDriverManager.chromedriver().setup();
+                //System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
                 setDriver(new ChromeDriver());
                 break;
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", "drivers/geckodriver");
+                WebDriverManager.firefoxdriver().setup();
+                //System.setProperty("webdriver.gecko.driver", "drivers/geckodriver");
                 setDriver(new FirefoxDriver());
+                break;
             case SAFARI:
-                //System.setProperty("webdriver.safari.driver", "drivers/safari");
                 setDriver(new SafariDriver());
+                break;
             default: throw new WebDriverException("No Driver Specified");
         }
 
