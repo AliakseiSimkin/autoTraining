@@ -33,8 +33,8 @@ public class BaseTest {
 
     protected FileInputStream fis;
     protected Properties property;
-    String envUrl;
-    String testSuiteName;
+    protected String envUrl;
+    protected String testSuiteName;
 
     @SneakyThrows
     @BeforeSuite

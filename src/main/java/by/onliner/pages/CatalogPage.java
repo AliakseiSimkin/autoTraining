@@ -15,6 +15,10 @@ import static com.simkin.framework.Browser.*;
 public class CatalogPage extends Page {
 
     private String catalogMenuElementXpath = "//li[@data-id][%d]";
+    private String navigationSubheaderElementXpath = "//div[contains(text(), \"%s\")]";
+    private String whatToBuyElementXpath = "//span[contains(text(), \"%s\")]";
+
+
 
     public CatalogPage logMessages() {
         super.logMessages();
@@ -38,13 +42,13 @@ public class CatalogPage extends Page {
     public CatalogPage hobbyElementHoverOver() throws InterruptedException {
         Thread.sleep(1000);
         implicitlyWait();
-        WebElement hobbyElement = getDriver().findElement(By.xpath("//div[contains(text(), \"Хобби\")]"));
+        WebElement hobbyElement = getDriver().findElement(By.xpath(String.format(navigationSubheaderElementXpath, "Хобби")));
         hoverOver(hobbyElement);
         return this;
     }
 
     public CatalogFilterPage aeroElementClickButton() {
-        String aeroElementXPath = "//span[contains(text(), \"Радиоуправляемые авиамодели\")]";
+        String aeroElementXPath = String.format(whatToBuyElementXpath, "Радиоуправляемые авиамодели");
         WebElement aeroElement = getDriver().findElement(By.xpath(aeroElementXPath));
         waitUntilVisibilityOfElementLocated(aeroElementXPath);
         aeroElement.click();

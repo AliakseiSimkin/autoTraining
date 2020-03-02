@@ -12,6 +12,14 @@ import static com.simkin.framework.WebDriverInstance.*;
 @NoArgsConstructor
 public class CatalogFilterPage extends Page {
 
+    public String catalogFilterPageHeader = "Радиоуправляемые авиамодели";
+    private String checkboxRelativeXpath = "//span[@class=\"schema-filter__checkbox-text\"][text()=\"%s\"]";
+    private String aByText = "//a[text()=\"%s\"]";
+    private String spanByText = "//span[contains(text(), \"%s\")]";
+    private String inputByPlaceholderValue = "//input[@class=\"schema-filter-control__item schema-filter__number-input\"][@placeholder=\"%s\"]";
+
+
+
     @Override
     public CatalogFilterPage logMessages() {
         super.logMessages();
@@ -37,7 +45,7 @@ public class CatalogFilterPage extends Page {
     }
 
     public CatalogFilterPage quadrocopterCheckboxCheck() {
-        String quadrocopterCheckboxXpath = "//span[@class=\"schema-filter__checkbox-text\"][text()=\"квадрокоптер\"]";
+        String quadrocopterCheckboxXpath = String.format(checkboxRelativeXpath, "квадрокоптер");
         WebElement quadrocopterCheckbox = getDriver().findElement(By.xpath(quadrocopterCheckboxXpath));
         quadrocopterCheckbox.click();
         waitUntilPresenceOfElementLocated(quadrocopterCheckboxXpath);
@@ -45,7 +53,7 @@ public class CatalogFilterPage extends Page {
     }
 
     public CatalogFilterPage metalCheckboxCheck() {
-        String metalCheckboxXpath = "//span[@class=\"schema-filter__checkbox-text\"][text()=\"металл\"]";
+        String metalCheckboxXpath = String.format(checkboxRelativeXpath, "металл");
         WebElement metalCheckbox = getDriver().findElement(By.xpath(metalCheckboxXpath));
         waitUntilPresenceOfElementLocated(metalCheckboxXpath);
         metalCheckbox.click();
@@ -53,7 +61,7 @@ public class CatalogFilterPage extends Page {
     }
 
     public CatalogFilterPage plasticCheckboxCheck() {
-        String plasticCheckboxXpath = "//span[@class=\"schema-filter__checkbox-text\"][text()=\"пластик\"]";
+        String plasticCheckboxXpath = String.format(checkboxRelativeXpath, "пластик");
         WebElement plasticCheckbox = getDriver().findElement(By.xpath(plasticCheckboxXpath));
         waitUntilPresenceOfElementLocated(plasticCheckboxXpath);
         plasticCheckbox.click();
@@ -61,19 +69,19 @@ public class CatalogFilterPage extends Page {
     }
 
     public CatalogFilterPage setRangeOfActionFromInput(String fromValue) {
-        WebElement rangeOfActionFromInput = getDriver().findElement(By.xpath("//input[@class=\"schema-filter-control__item schema-filter__number-input\"][@placeholder=\"5\"]"));
+        WebElement rangeOfActionFromInput = getDriver().findElement(By.xpath(String.format(inputByPlaceholderValue, "5")));
         rangeOfActionFromInput.sendKeys(fromValue);
         return this;
     }
 
     public CatalogFilterPage additionalParametersElementClick() {
-        WebElement additionalParametersElement = getDriver().findElement(By.xpath("//a[text()=\"Дополнительные параметры\"]"));
+        WebElement additionalParametersElement = getDriver().findElement(By.xpath(String.format(aByText, "Дополнительные параметры")));
         additionalParametersElement.click();
         return this;
     }
 
     public CatalogFilterPage brushlessCheckboxCheck() {
-        String brushlessCheckboxXpath = "//span[@class=\"schema-filter__checkbox-text\"][text()=\"бесколлекторный\"]";
+        String brushlessCheckboxXpath = String.format(checkboxRelativeXpath, "бесколлекторный");
         WebElement brushlessCheckbox = getDriver().findElement(By.xpath(brushlessCheckboxXpath));
         waitUntilVisibilityOfElementLocated(brushlessCheckboxXpath);
         brushlessCheckbox.click();
@@ -82,8 +90,8 @@ public class CatalogFilterPage extends Page {
 
     public CatalogFilterPage itemsFoundVerify(String expectedText) throws InterruptedException {
         Thread.sleep(1000);
-        String itemsFoundXpath = "//span[contains(text(), \"Найдено\")]";
-        WebElement itemsFound = getDriver().findElement(By.xpath("//span[contains(text(), \"Найдено\")]"));
+        String itemsFoundXpath = String.format(spanByText, "Найдено");
+        WebElement itemsFound = getDriver().findElement(By.xpath(itemsFoundXpath));
         waitUntilVisibilityOfElementLocated(itemsFoundXpath);
         Assert.assertEquals(itemsFound.getText(), expectedText);
         return this;

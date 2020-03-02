@@ -12,6 +12,8 @@ import static com.simkin.framework.WebDriverInstance.*;
 @Log4j
 @NoArgsConstructor
 public class MainPage extends Page {
+    private String headerMenuXpath = "//span[@class=\"b-main-navigation__text\" and text()=\"%s\"]";
+    private String subHeaderMenuXpath = "//li[@data-id][%d]";
 
     @Override
     public MainPage logMessages() {
@@ -31,10 +33,9 @@ public class MainPage extends Page {
     }
 
     public CatalogPage openHeaderMenu(HeaderMenu headerMenu) {
-        getDriver().findElement(By.xpath(String.format("//span[@class=\"b-main-navigation__text\" and text()=\"%s\"]", headerMenu.getMenuText()))).click();
+        getDriver().findElement(By.xpath(String.format(headerMenuXpath, headerMenu.getMenuText()))).click();
         implicitlyWait();
-        waitUntilVisibilityOfElementLocated(String.format("//li[@data-id][%d]", CatalogMenu.BEAUTY.getSubMenuNumber()));
-        //waitUntilVisibilityOfElementLocated("//span[contains(text(), \"Красота и\")]");
+        waitUntilVisibilityOfElementLocated(String.format(subHeaderMenuXpath, CatalogMenu.BEAUTY.getSubMenuNumber()));
         return new CatalogPage();
     }
 }

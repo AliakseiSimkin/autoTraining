@@ -16,7 +16,7 @@ public class FilterTestSuite extends BaseTest {
                     .openCatalogSubMenu(CatalogMenu.BEAUTY)
                     .hobbyElementHoverOver().aeroElementClickButton()
                     //Проверить текст хедера "Радиоуправляемые авиамодели"
-                    .checkHeader(getDriver().getTitle())
+                    .checkHeader("Радиоуправляемые авиамодели")
                     .scrollPageDown()
                     //Check checkboxes to setup a filter
                     .quadrocopterCheckboxCheck()
