@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static com.simkin.framework.Browser.implicitlyWait;
 import static com.simkin.framework.WebDriverInstance.*;
@@ -37,5 +40,23 @@ public class MainPage extends Page {
         implicitlyWait();
         waitUntilVisibilityOfElementLocated(String.format(subHeaderMenuXpath, CatalogMenu.BEAUTY.getSubMenuNumber()));
         return new CatalogPage();
+    }
+
+    public MainPage checkHeaderMenu(HeaderMenu headerMenu) {
+        //WebElement headerMenuElement = getDriver().findElement( By.xpath("//span[@class=\"b-main-navigation__text\"]"));
+        //span[@class="b-main-navigation__text"]
+        List<WebElement> headerMenuAllElements = getDriver().findElements(By.xpath("//span[@class=\"b-main-navigation__text\"]"));
+        boolean isFound = false;
+        for ( WebElement headerMenuElement: headerMenuAllElements) {
+            if (headerMenuElement.getText().equals(headerMenu.getMenuText())) {
+                log.info("Header element " + headerMenuElement.getText() + " has been found");
+                isFound = true;
+                break;
+            }
+        }
+        if (isFound == true) {
+            log.info(headerMenu.getMenuText() + " header element exists");
+            return this;
+        } else throw new NotFoundException(headerMenu.getMenuText() + "header element is not found!");
     }
 }

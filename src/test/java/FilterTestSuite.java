@@ -2,21 +2,21 @@ import by.onliner.pages.BaseTest;
 
 import by.onliner.pages.CatalogMenu;
 import by.onliner.pages.HeaderMenu;
+import lombok.extern.log4j.Log4j;
 import org.testng.annotations.Test;
 
-import static com.simkin.framework.WebDriverInstance.getDriver;
-
+//java -Dmy.prop="my value" FilterTestSuite
+@Log4j
 public class FilterTestSuite extends BaseTest {
-
-        @Test
+        @Test (priority = 0)
         public void testOnliner() throws Exception {
-            //start testing
-            webaApp.mainPage()
+            log.info("Thread is " + Thread.currentThread().getId());
+            webApp.mainPage()
                     .openHeaderMenu(HeaderMenu.CATALOG)
                     .openCatalogSubMenu(CatalogMenu.BEAUTY)
                     .hobbyElementHoverOver().aeroElementClickButton()
                     //Проверить текст хедера "Радиоуправляемые авиамодели"
-                    .checkHeader("Радиоуправляемые авиамодели")
+                    .checkHeader("Квадрокоптер купить в Минске. Радиоуправляемые самолеты")
                     .scrollPageDown()
                     //Check checkboxes to setup a filter
                     .quadrocopterCheckboxCheck()
@@ -31,4 +31,17 @@ public class FilterTestSuite extends BaseTest {
                     //Check how many items were found
                     .itemsFoundVerify("Найдено 102 товара");
         }
+
+    @Test(priority = 1)
+    public void mainPageHeaderVerification() {
+        log.info("Thread is " + Thread.currentThread().getId());
+            webApp.mainPage()
+                .checkHeaderMenu(HeaderMenu.CATALOG)
+                .checkHeaderMenu(HeaderMenu.NEWS)
+                .checkHeaderMenu(HeaderMenu.CARMARKET)
+                .checkHeaderMenu(HeaderMenu.HOUSES)
+                .checkHeaderMenu(HeaderMenu.SERVICES)
+                .checkHeaderMenu(HeaderMenu.FLEAMARKET)
+                .checkHeaderMenu(HeaderMenu.FORUM);
+    }
 }

@@ -14,7 +14,6 @@ public class Browser extends WebDriverInstance {
         switch (browserType) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
-                //System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
                 setDriver(new ChromeDriver());
                 break;
             case FIREFOX:

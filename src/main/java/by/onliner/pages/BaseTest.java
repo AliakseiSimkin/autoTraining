@@ -21,12 +21,13 @@ import java.util.Properties;
 
 import static com.simkin.framework.WebDriverInstance.*;
 
+
 @Log4j
 public class BaseTest {
 
     private Browser browser;
 
-    protected static WebApplication webaApp;
+    protected static WebApplication webApp;
     protected static ExtentTest extentTest;
     protected static ExtentHtmlReporter extentHtmlReporter;
     protected static ExtentReports extentReports;
@@ -40,7 +41,7 @@ public class BaseTest {
     @BeforeSuite
     public void beforeSuite() {
         browser = new Browser(BrowserType.CHROME);
-        webaApp = new WebApplication();
+        webApp = new WebApplication();
         property = new Properties();
 
         try {

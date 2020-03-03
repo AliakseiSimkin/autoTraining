@@ -11,7 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 import static com.simkin.framework.Browser.implicitlyWait;
 import static com.simkin.framework.Browser.maximizeWindow;
-import static com.simkin.framework.WebDriverInstance.*;
+import static com.simkin.framework.WebDriverInstance.getDriver;
+import static com.simkin.framework.WebDriverInstance.getWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 @Log4j
@@ -23,7 +24,6 @@ public class Page {
     }
 
    protected Page openPage(String url) {
-
         getDriver().get(url);
        maximizeWindow();
        implicitlyWait();
