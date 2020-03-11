@@ -3,9 +3,8 @@ import by.onliner.pages.HeaderMenu;
 import lombok.extern.log4j.Log4j;
 import org.testng.annotations.Test;
 
-//java -Dmy.prop="my value" FilterTestSuite
 @Log4j
-public class HeaderMenuVerification extends BaseTest {
+public class HeaderMenuTest extends BaseTest {
     @Test
     public void mainPageHeaderVerification() throws Exception {
         log.info("Thread is " + Thread.currentThread().getId());

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Parallel_Testing" thread-count="2" parallel="methods" >
+<suite name="Parallel_Testing" thread-count="1" parallel="classes" >
     <test name="testOnliner">
         <classes>
-            <class name="FilterTestSuite"/>
+            <class name="FiltersTest"/>
         </classes>
     </test>
 </suite>

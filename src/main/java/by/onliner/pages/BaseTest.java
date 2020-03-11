@@ -44,7 +44,7 @@ public class BaseTest {
         webApp = new WebApplication();
         property = new Properties();
 
-        try {
+        /*try {
             fis = new FileInputStream("src" + File.separator + "main" + File.separator + "resources" + File.separator + "onlinerProd.properties");
             property.load(fis);
             envUrl = property.getProperty("env");
@@ -57,7 +57,10 @@ public class BaseTest {
             log.error("File not found or it cannot be read");
         } finally {
             fis.close();
-        }
+        }*/
+
+        envUrl = System.getProperty("envUrl");
+        testSuiteName = System.getProperty("testSuiteName");
     }
 
     @BeforeClass
