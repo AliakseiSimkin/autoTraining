@@ -34,7 +34,7 @@ public class BaseTest {
 
     protected FileInputStream fis;
     protected Properties property;
-    protected String envUrl;
+    protected String env;
     protected String testSuiteName;
 
     @SneakyThrows
@@ -44,23 +44,25 @@ public class BaseTest {
         webApp = new WebApplication();
         property = new Properties();
 
-        /*try {
-            fis = new FileInputStream("src" + File.separator + "main" + File.separator + "resources" + File.separator + "onlinerProd.properties");
-            property.load(fis);
-            envUrl = property.getProperty("env");
-            testSuiteName = property.getProperty("testSuiteName");
+        if (System.getProperty("env") != null) {
+            env = System.getProperty("env");
+            testSuiteName = System.getProperty("testSuiteName");
+        } else {
+            try {
+                fis = new FileInputStream("src" + File.separator + "main" + File.separator + "resources" + File.separator + "onlinerProd.properties");
+                property.load(fis);
+                env = property.getProperty("env");
+                testSuiteName = property.getProperty("testSuiteName");
 
-            log.info("Environment URL is " + envUrl);
-            log.info("The following tests will be run " + testSuiteName);
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.error("File not found or it cannot be read");
-        } finally {
-            fis.close();
-        }*/
-
-        envUrl = System.getProperty("envUrl");
-        testSuiteName = System.getProperty("testSuiteName");
+                log.info("Environment URL is " + env);
+                log.info("The following tests will be run " + testSuiteName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                log.error("File not found or it cannot be read");
+            } finally {
+                fis.close();
+            }
+        }
     }
 
     @BeforeClass
@@ -73,7 +75,7 @@ public class BaseTest {
     @BeforeMethod
     public void beforeMethod() {
         extentTest = extentReports.createTest(testSuiteName);
-        browser.openUrl(envUrl);
+        browser.openUrl(env);
         browser.maximizeWindow();
     }
 
