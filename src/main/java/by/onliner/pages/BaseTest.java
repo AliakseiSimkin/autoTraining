@@ -8,6 +8,7 @@ import com.simkin.framework.Browser;
 import com.simkin.framework.BrowserType;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
+import org.apache.bcel.generic.SWITCH;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Locale;
 import java.util.Properties;
 
 import static com.simkin.framework.WebDriverInstance.*;
@@ -84,7 +86,16 @@ public class BaseTest {
         TakesScreenshot scr = ((TakesScreenshot) getDriver());
         File screenshot = scr.getScreenshotAs(OutputType.FILE);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        FileUtils.copyFile(screenshot, new File(File.separator + "Users" + File.separator + "aliaksei.simkin" + File.separator + "Documents" + File.separator + "Automation" + File.separator + "screenshots" + File.separator + "test1-" + timestamp + " .png"));
+
+        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).startsWith("windows"))
+        {
+            //Windows path
+            FileUtils.copyFile(screenshot, new File("D://Trainings/Automation/Repositories/screenshots/" + "test1-" + timestamp.toString().replaceAll(":","_") +".png"));
+        } else {
+            //Linux path
+            FileUtils.copyFile(screenshot, new File(File.separator + "Users" + File.separator + "aliaksei.simkin" + File.separator + "Documents" + File.separator + "Automation" + File.separator + "screenshots" + File.separator + "test1-" + timestamp + " .png"));
+        }
+
         extentTest.log(Status.PASS, "the test is finished successfully");
         extentTest = null;
     }
